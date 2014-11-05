@@ -1,0 +1,24 @@
+<% if @view_in_config && @erb_code %>
+  <%= render inline: @erb_code %>
+  
+<% else %>
+
+<h4><%= @title %></h4>
+
+<%= simple_form_for @checkout do |f| %>
+  <%= f.input :requisition_id, :label => t("Requisition#"), :readonly => true, :input_html => {:value => @requisition.id} %>     
+  <%= f.input :request_date, :label => t("Request Date"), :input_html => {:value => @requisition.requested_date.strftime("%Y/%m/%d")}, :readonly => true %> 
+  <%= f.input :requested_by_name, :label => t("Requested By", :input_html => {:value => @requisition.requested_by.name}, :readonly => true) %> 
+  <%= f.input :item_id, :label => t("Item#"), :readonly => true %> 
+  <%= f.input :name, :label => t("Item Name"), :readonly => true, :input_html => {:value => @item.name} %>
+  <%= f.input :spec, :label => t("Spec"), :readonly => true, :input_html => {:value => @item.item_spec} %>
+  <%= f.input :requested_qty, :label => t("Requested Qty"), :readonly => true %>
+  <%= f.input :unit, :label => t("Unit"), :input_html => {:value => @item.unit}, :readonly => true %>  
+  <%= f.input :checkout_qty, :label => t("Out Qty") %>
+  <%= f.input :brief_note, :label => t("Brief Note") %> 
+  
+  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
+  <%= f.button :submit, t('Save'), :class => BUTTONS_CLS['action'] %>  
+<% end %>
+
+<% end %>

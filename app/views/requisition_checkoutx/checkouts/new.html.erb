@@ -1,0 +1,44 @@
+<div id="main_body">
+<% if @view_in_config && @erb_code %>
+<%= render inline: @erb_code %>
+<% else %>
+
+<h1><%=@title %></h1>
+<p><%=t('Item Name')%>=<%=@item.name if @item %>, <%=t('Spec')%>=<%=@item.spec if @item %></p>
+<p><%=t('Requested Qty')%>=<%=@item.qty if @item %><%=@item.unit if @item %></p>
+<%= form_tag checkouts_path, :method => :post do %>
+<table class="table table-striped">
+  <tr>
+  	 <th><%= t('Check')%></th>
+     <th><%= t('In Date') %></th>
+     <th><%= t('Name') %></th>
+     <th><%= t('Item Spec') %></th>
+     <th><%= t('Stock Qty') %></th>
+     <th><%= t('Out Qty') %></th>
+  </tr>
+
+<% @item_in_stock.each do |i| %>
+  
+      <tr>
+        <td><%= check_box_tag 'ids[]', i.id %></td>
+        <td><%= i.in_date.strftime('%Y/%m/%d') %></td>
+        <td><%= i.name %></td>
+        <td><%= i.item_spec %></td>
+        <td><%= i.stock_qty %><%= i.unit %></td>
+        <td><%= text_field_tag 'out_qtys[]', '', class: 'input-small', placeholder: t('Enter checkout qty') %></td>                   
+      </tr>
+    
+<% end %>
+   <table class="table table-striped">
+	  <tr>
+	    <th>
+  		  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action'] %>&nbsp;&nbsp;
+  		  <%= submit_tag t('Save') ,:name => "save[#{@item.id}]", :class => BUTTONS_CLS['action'] %>
+  	    </th>
+	  </tr>
+	</table> 
+
+<% end %>
+
+<% end %>
+</div>

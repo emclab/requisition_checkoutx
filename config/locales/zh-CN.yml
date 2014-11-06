@@ -84,3 +84,7 @@ zh-CN:
   Stock Qty Not Enough or Missing Data : '库存数量不足/缺数据'
   Enter checkout qty : '输入出库数量'
   Check : '选择'
+  Requisition Qty/Unit : '申请数量/单位'
+  Fulfilled Qty : '出库数量'
+  Out Qty/Unit : '出库数量/单位'
+  

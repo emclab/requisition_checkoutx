@@ -40,8 +40,8 @@
 	    <th>
   	  	  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
  		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		  <%= link_to t('New Log'), SUBURI + commonx.new_log_path(:resource_id => @checkout.id, :resource_name => params[:controller], :subaction => 'warehouse_item', :format => :js), :remote => true, 
-                          :id => 'new_log_link', :class => BUTTONS_CLS['action'] if has_action_right?('create_warehouse_item', 'commonx/logs') %>
+		  <%= link_to t('New Log'), SUBURI + commonx.new_log_path(:resource_id => @checkout.id, :resource_name => params[:controller], :subaction => 'item_checkout', :format => :js), :remote => true, 
+                          :id => 'new_log_link', :class => BUTTONS_CLS['action'] if has_action_right?('create_item_checkout', 'commonx/logs') %>
         </th>
 	  </tr>
 	</table>    	

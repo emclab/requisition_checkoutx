@@ -9,7 +9,7 @@ module RequisitionCheckoutx
       @title = t('Checkout Items')
       @checkouts = params[:requisition_checkoutx_checkouts][:model_ar_r]
       @checkouts = @checkouts.where(:whs_string => @whs_string) if @whs_string
-      @checkouts = @checkouts.where(:project_id => @project_id) if @project
+      @checkouts = @checkouts.where(:project_id => @project.id) if @project
       @checkouts = @checkouts.where(:requisition_id => @requisition.id) if @requisition
       @checkouts = @checkouts.where(:item_id => @item.id) if @item
       @checkouts = @checkouts.page(params[:page]).per_page(@max_pagination)

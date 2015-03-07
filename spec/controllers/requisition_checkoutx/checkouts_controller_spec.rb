@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module RequisitionCheckoutx
   describe CheckoutsController do
-  
+    routes {RequisitionCheckoutx::Engine.routes}
     before(:each) do
       controller.should_receive(:require_signin)
       controller.should_receive(:require_employee)
@@ -60,8 +60,8 @@ module RequisitionCheckoutx
         :sql_code => "RequisitionCheckoutx::Checkout.scoped.order('created_at DESC')")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
-        q = FactoryGirl.create(:requisition_checkoutx_checkout, :requisition_id => @q.id, :item_id => @qi.id)
-        q1 = FactoryGirl.create(:requisition_checkoutx_checkout, :requisition_id => @q1.id, :item_id => @qi1.id)
+        q = FactoryGirl.create(:requisition_checkoutx_checkout, :requisition_id => @q.id, :item_id => @qi.id, project_id: @p.id)
+        q1 = FactoryGirl.create(:requisition_checkoutx_checkout, :requisition_id => @q1.id, :item_id => @qi1.id, project_id: @p.id)
         get 'index', {:use_route => :requisition_checkoutx, :project_id => @p.id}
         assigns(:checkouts).should =~ [q1, q]
       end
@@ -69,7 +69,7 @@ module RequisitionCheckoutx
   
     describe "GET 'new'" do
       it "returns http success" do
-        user_access = FactoryGirl.create(:user_access, :action => 'new', :resource =>'requisition_checkoutx_checkouts', :role_definition_id => @role.id, :rank => 1,
+        user_access = FactoryGirl.create(:user_access, :action => 'create', :resource =>'requisition_checkoutx_checkouts', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
